@@ -12,7 +12,7 @@ public class hOME : BasicScreen
 
     public Button play;
 
-    public GameScreen _gameScreen;
+    public GamePlayScreen _gameScreen;
 
 
     void Start()

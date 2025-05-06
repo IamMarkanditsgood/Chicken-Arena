@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class WinLose : BasicPopup
 {
-    public GameScreen _gameScreen;
+    public GamePlayScreen _gameScreen;
 
     public Button playAgain;
 
