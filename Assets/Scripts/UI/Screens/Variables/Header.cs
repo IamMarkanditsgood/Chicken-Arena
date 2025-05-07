@@ -30,8 +30,13 @@ public class Header : MonoBehaviour
 
     private void UpdateEggs(int value = 0)
     {
+        
         int eggs = PlayerPrefs.GetInt("Eggs");
         eggs += value;
+        if (eggs == 1000)
+        {
+            PlayerPrefs.SetInt("Achieve1", 1);
+        }
         PlayerPrefs.SetInt("Eggs" , eggs);
         textManager.SetText(eggs, eggsText, true);
     }
@@ -40,6 +45,10 @@ public class Header : MonoBehaviour
     {
         int eggs = PlayerPrefs.GetInt("Score");
         eggs += value;
+        if (eggs == 1000)
+        {
+            PlayerPrefs.SetInt("Achieve3", 1);
+        }
         PlayerPrefs.SetInt("Score", eggs);
         textManager.SetText(eggs, scoreText, true);
     }
@@ -47,7 +56,23 @@ public class Header : MonoBehaviour
     {
         int eggs = PlayerPrefs.GetInt("Battles");
         eggs += value;
-        PlayerPrefs.SetInt("Eggs", eggs);
+
+        if(eggs == 25)
+        {
+            PlayerPrefs.SetInt("Achieve4", 1);
+
+        }
+        if (eggs == 50)
+        {
+            PlayerPrefs.SetInt("Achieve2", 1);
+
+        }
+        if (eggs == 100)
+        {
+            PlayerPrefs.SetInt("Achieve5", 1);
+
+        }
+        PlayerPrefs.SetInt("Battles", eggs);
         if(eggs > 100)
         {
             eggs = 100;
