@@ -7,6 +7,9 @@ using UnityEngine.UI;
 
 public class GamePlayScreen : BasicScreen
 {
+    public AudioSource music;
+    public AudioClip musicClip;
+
     public TMP_Text _gameScore;
     public TMP_Text _eggs;
     public TMP_Text _score;
@@ -62,6 +65,10 @@ public class GamePlayScreen : BasicScreen
     public override void ResetScreen()
     {
         FinishGame();
+        if (PlayerPrefs.GetInt("Musci") == 1)
+        {
+            music.Stop();
+        }
     }
 
     public override void SetScreen()
@@ -86,6 +93,12 @@ public class GamePlayScreen : BasicScreen
     }
     public void StartGame()
     {
+        if(PlayerPrefs.GetInt("Musci") == 1)
+        {
+            music.clip = musicClip;
+            music.Play();
+        }
+
         foreach(var enemy in _enemies)
         {
             Destroy(enemy);

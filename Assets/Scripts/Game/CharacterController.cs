@@ -10,6 +10,13 @@ public enum UnitType
 
 public class CharacterController : MonoBehaviour, IDamageable
 {
+    public AudioSource movementSoundSource;
+    public AudioSource damageSoundSource;
+    public AudioSource deadSoundSource;
+    public AudioClip movementSound;
+    public AudioClip damageSound;
+    public AudioClip dead;
+
     [Header("Unit Properties")]
     public int health = 100;
     public int damage = 10;
@@ -31,6 +38,11 @@ public class CharacterController : MonoBehaviour, IDamageable
     {
         // Приклад, як встановити напрямок руху
         moveCoroutime = StartCoroutine(MoveUnit());
+        if (PlayerPrefs.GetInt("Sounds") == 1)
+        {
+            movementSoundSource.clip = movementSound;
+            movementSoundSource.Play();
+        }
     }
 
     private void Update()
@@ -79,6 +91,11 @@ public class CharacterController : MonoBehaviour, IDamageable
         while (target != null && damageable != null && damageable.IsAlive())
         {
             damageable.TakeDamage(damage);
+            if (PlayerPrefs.GetInt("Sounds") == 1)
+            {
+                damageSoundSource.clip = damageSound;
+                damageSoundSource.Play();
+            }
             yield return new WaitForSeconds(1f);
         }
 
@@ -103,6 +120,7 @@ public class CharacterController : MonoBehaviour, IDamageable
 
     private void StopMovement()
     {
+        movementSoundSource.Stop();
         Debug.Log("Stop");
         // Зупинити рух
         StopCoroutine(moveCoroutime);
@@ -111,6 +129,11 @@ public class CharacterController : MonoBehaviour, IDamageable
 
     private void StartMovement()
     {
+        if (PlayerPrefs.GetInt("Sounds") == 1)
+        {
+            movementSoundSource.clip = movementSound;
+            movementSoundSource.Play();
+        }
         Debug.Log("Move");
         // Запустити рух
         moveCoroutime = StartCoroutine(MoveUnit());
@@ -118,7 +141,7 @@ public class CharacterController : MonoBehaviour, IDamageable
 
     public void TakeDamage(int damage)
     {
-       
+
         health -= damage;
         if (health <= 0)
         {
